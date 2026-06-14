@@ -1,0 +1,50 @@
+## Build outputs and artifacts
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+## IDE and Editor Specific Files
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+## User-specific files and local settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.ltx
+*.tmp
+
+## Roslyn cache directories
+.analyzerdata/
+
+## Testing and Code Coverage
+TestResults/
+*.clog
+*.log
+
+## Secrets & Local Configuration files
+# Never commit actual production secrets to git!
+appsettings.Development.json
+appsettings.Local.json
+*.secrets.json
+.microsoft/usersecrets/
+
+## OS-specific files
+Thumbs.db
+.DS_Store
