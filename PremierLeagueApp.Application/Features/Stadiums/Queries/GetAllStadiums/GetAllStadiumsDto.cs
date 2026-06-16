@@ -1,4 +1,4 @@
-﻿namespace PremierLeagueApp.Application.Features.Stadiums.Queries
+﻿namespace PremierLeagueApp.Application.Features.Stadiums.Queries.GetAllStadiums
 {
     public class GetAllStadiumsDto
     {
