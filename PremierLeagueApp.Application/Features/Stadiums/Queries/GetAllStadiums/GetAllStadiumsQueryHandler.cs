@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using LiteBus.Queries.Abstractions;
 using PremierLeagueApp.Application.Common;
+using PremierLeagueApp.Application.Features.Stadiums.Queries.GetAllStadiums;
 
 namespace PremierLeagueApp.Application.Features.Stadiums.Queries
 {
