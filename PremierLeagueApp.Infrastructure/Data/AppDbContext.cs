@@ -11,5 +11,25 @@ namespace PremierLeagueApp.Infrastructure.Data
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Stadium>(builder =>
+            {
+                builder.ToTable("Stadiums");
+
+                builder.HasKey(s => s.Id);
+
+                builder.Property(s => s.Id)
+                    .HasConversion(
+                        id => id.Value,
+                        value => new StadiumId(value));
+
+                builder.Property(s => s.Name).IsRequired().HasMaxLength(100);
+                builder.Property(s => s.City).IsRequired().HasMaxLength(100);
+            })
+        }
     }
 }
