@@ -1,0 +1,58 @@
+﻿@page "/stadiums"
+@using LiteBus.Queries.Abstractions
+@using PremierLeagueApp.Application.Features.Stadiums.Queries.GetAllStadiums
+
+@inject IQueryMediator QueryMediator
+
+@rendermode InteractiveServer
+
+<h3>Stadiums of the Premier League</h3>
+
+@if (stadiums == null)
+{
+    <p><em>Loading...</em></p>
+} 
+else if (!stadiums.Any())
+{
+    <p>No stadiums found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Capacity</th>
+                <th>Built year</th>
+                <th>Pitch Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stadium in stadiums)
+            {
+                <tr>
+                    <td>@stadium.Name</td>
+                    <td>@stadium.City</td>
+                    <td>@stadium.Capacity.ToString("N0")</td>
+                    <td>@stadium.BuiltYear</td>
+                    <td>@stadium.PitchLength x @stadium.PitchWidth м</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<GetAllStadiumsDto>? stadiums;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStadiums();
+    }
+
+    private async Task LoadStadiums()
+    {
+        stadiums = await QueryMediator.QueryAsync(new GetAllStadiumsQuery());
+    }
+}

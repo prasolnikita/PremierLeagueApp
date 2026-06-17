@@ -1,3 +1,5 @@
+using PremierLeagueApp.Application;
+using PremierLeagueApp.Infrastructure;
 using PremierLeagueApp.Presentation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<PremierLeagueApp.Infrastructure.Data.AppDbContext>();
+    context.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

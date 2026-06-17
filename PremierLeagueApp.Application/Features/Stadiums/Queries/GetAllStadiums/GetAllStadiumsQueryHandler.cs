@@ -17,7 +17,7 @@ namespace PremierLeagueApp.Application.Features.Stadiums.Queries
         public async Task<IEnumerable<GetAllStadiumsDto>> HandleAsync(GetAllStadiumsQuery query, CancellationToken cancellationToken = default)
         {
             using var connection = _connectionFactory.GetOpenConnection();
-            const string sql = "SELECT Id, Name, City, Capacity, BuiltYear, PitchLength, PitchWidth FROM Stadium WHERE IsDeleted = 0";
+            const string sql = "SELECT Id, Name, City, Capacity, BuiltYear, PitchLength, PitchWidth FROM Stadiums WHERE IsDeleted = 0";
             return await connection.QueryAsync<GetAllStadiumsDto>(sql);
         }
     }

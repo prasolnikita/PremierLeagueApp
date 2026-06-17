@@ -12,7 +12,7 @@ namespace PremierLeagueApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefauldConnection")
+            var connectionString = configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string not found.");
 
             services.AddTransient<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
