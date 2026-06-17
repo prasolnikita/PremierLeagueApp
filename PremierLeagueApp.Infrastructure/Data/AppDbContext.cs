@@ -29,7 +29,7 @@ namespace PremierLeagueApp.Infrastructure.Data
 
                 builder.Property(s => s.Name).IsRequired().HasMaxLength(100);
                 builder.Property(s => s.City).IsRequired().HasMaxLength(100);
-            })
+            });
         }
     }
 }
