@@ -1,8 +1,12 @@
 ﻿@page "/stadiums"
+@using LiteBus.Commands.Abstractions
 @using LiteBus.Queries.Abstractions
+
+@using PremierLeagueApp.Application.Features.Stadiums.Commands.CreateStadium
 @using PremierLeagueApp.Application.Features.Stadiums.Queries.GetAllStadiums
 
 @inject IQueryMediator QueryMediator
+@inject ICommandMediator CommandMediator
 
 @rendermode InteractiveServer
 
@@ -43,8 +47,43 @@ else
     </table>
 }
 
+<h4>Add new Stadium</h4>
+
+<EditForm Model="newStadium" OnValidSubmit="HandleValidSubmit" FormName="CreateStadiumForm">
+    <DataAnnotationsValidator />
+    
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <InputText class="form-control" @bind-Value="newStadium.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">City:</label>
+        <InputText class="form-control" @bind-Value="newStadium.City" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Capacity:</label>
+        <InputNumber class="form-control" @bind-Value="newStadium.Capacity" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Built Year:</label>
+        <InputNumber class="form-control" @bind-Value="newStadium.BuiltYear" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Pitch Length (m):</label>
+        <InputNumber class="form-control" @bind-Value="newStadium.PitchLength" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Pitch Width (m):</label>
+        <InputNumber class="form-control" @bind-Value="newStadium.PitchWidth" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Stadim</button>
+</EditForm>
+
 @code {
     private IEnumerable<GetAllStadiumsDto>? stadiums;
+
+    private CreateStadiumCommand newStadium = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,5 +93,14 @@ else
     private async Task LoadStadiums()
     {
         stadiums = await QueryMediator.QueryAsync(new GetAllStadiumsQuery());
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await CommandMediator.SendAsync(newStadium);
+
+        newStadium = new CreateStadiumCommand();
+
+        await LoadStadiums();
     }
 }

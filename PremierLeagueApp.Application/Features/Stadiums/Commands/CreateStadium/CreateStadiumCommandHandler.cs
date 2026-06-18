@@ -18,7 +18,7 @@ namespace PremierLeagueApp.Application.Features.Stadiums.Commands.CreateStadium
                 command.Name,
                 command.City,
                 command.Capacity,
-                command.BuitYear,
+                command.BuiltYear,
                 command.PitchLength,
                 command.PitchWidth
             );
