@@ -3,6 +3,7 @@
 @using LiteBus.Queries.Abstractions
 
 @using PremierLeagueApp.Application.Features.Stadiums.Commands.CreateStadium
+@using PremierLeagueApp.Application.Features.Stadiums.Commands.DeleteStadium
 @using PremierLeagueApp.Application.Features.Stadiums.Queries.GetAllStadiums
 
 @inject IQueryMediator QueryMediator
@@ -30,6 +31,7 @@ else
                 <th>Capacity</th>
                 <th>Built year</th>
                 <th>Pitch Size</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +43,11 @@ else
                     <td>@stadium.Capacity.ToString("N0")</td>
                     <td>@stadium.BuiltYear</td>
                     <td>@stadium.PitchLength x @stadium.PitchWidth м</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteStadium(stadium.Id)">
+                            Delete
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -100,6 +107,13 @@ else
         await CommandMediator.SendAsync(newStadium);
 
         newStadium = new CreateStadiumCommand();
+
+        await LoadStadiums();
+    }
+
+    private async Task DeleteStadium(Guid stadiumId)
+    {
+        await CommandMediator.SendAsync(new DeleteStadiumCommand(stadiumId));
 
         await LoadStadiums();
     }
